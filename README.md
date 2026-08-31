@@ -123,25 +123,6 @@ Cada experto implementa el mismo contrato `ExpertOutput(name, signal ∈ [-1, 1]
 
 ---
 
-## 🔍 Auditoría cruzada v2 → v2.1
-
-Esta versión incorpora una ronda de auditoría cruzada (verificación línea por línea contra el código, no solo contra un informe externo) sobre un hallazgo central: **en presencia de ruido de microestructura, el sistema entraba y salía de posiciones de forma repetitiva (whipsaw)**, sin fricción de mercado que lo penalizara en el PnL simulado. Los cuatro hallazgos se confirmaron y corrigieron quirúrgicamente:
-
-| # | Hallazgo | Corrección aplicada |
-|---|---|---|
-| A | Banda mínima (0.15 → 0.2) entre umbral de entrada y salida por reversión, **sin histéresis, piso de retención ni confirmación por N ciclos** | Salida por reversión ahora exige `MIN_HOLD_SECONDS` de retención mínima + umbral ampliado (`EXIT_REVERSAL_SIGNAL_THRESHOLD`) + `REVERSAL_CONFIRMATION_CYCLES` ciclos consecutivos. Stop-loss y trailing siguen siendo inmediatos (protección de capital, no señal) |
-| B | `PaperExecutionAdapter.close_position()` **no aplicaba comisión ni slippage** — PnL de delta de precio puro, invisibilizando el costo real del whipsaw | Se descuenta round-trip de `TAKER_FEE_PCT + SLIPPAGE_PCT` sobre ambos lados de la vuelta |
-| C | `get_fear_greed()` / `get_mempool_pressure()` son datos **globales**, pero cada `DataFeed` (uno por símbolo) los pedía por separado → 3x llamadas redundantes a APIs públicas de límite bajo, riesgo real de HTTP 429 sostenido | `_TTLCache` compartida entre los `DataFeed` de los N símbolos; solo se cachean resultados exitosos |
-| D | `VPINLiquidityExpert.infer()` fijaba la dirección por el **signo del último bucket de volumen únicamente**, que puede voltear entre ciclos consecutivos de `MIN_CYCLE_INTERVAL_SECONDS` sin cambio real de fondo | La dirección ahora usa el desequilibrio neto acumulado sobre los últimos hasta 3 buckets, no uno solo |
-
-### Evaluado y descartado deliberadamente en esta ronda
-
-`BOCPDRegimeExpert.reset()` se invoca en cada `infer()`, recalculando el changepoint desde cero sobre la ventana visible en vez de mantener estado online entre ciclos. Es una **inconsistencia de diseño real** (convierte un método "online" en uno "batch", perdiendo memoria de régimen fuera de la ventana visible) — pero el recálculo es computacionalmente trivial sobre ~200 velas incluso en el hardware objetivo, así que **no es un riesgo de estabilidad ni de CPU**. Queda documentado en el CHANGELOG del propio fichero para una futura versión con estado online, en vez de corregirse a ciegas fuera del alcance de esta auditoría.
-
-> **Encuadre honesto**: presentado como "sistema listo para capital real", el whipsaw sin fricción era descalificante. Presentado como lo que efectivamente es — un prototipo de investigación en gating adaptativo multi-experto con paper trading, con `LIVE_TRADING_ENABLED = False` por defecto y el adaptador en vivo bloqueado deliberadamente — el churning era un hallazgo esperable de una versión en desarrollo, ya identificado y corregido en esta ronda.
-
----
-
 ## ⚙️ Configuración
 
 Todos los parámetros viven en `Config` (dataclass, un solo lugar). Los más relevantes:
@@ -217,14 +198,6 @@ Diseñado explícitamente para hardware modesto, no como optimización posterior
 - Sin GPU
 - **Sin AVX2** (Compaq CQ45) — nada de rutas numéricas que asuman instrucciones vectoriales modernas
 - Solo `numpy` + `requests` como dependencias externas; el resto es stdlib (`tkinter`, `threading`, `queue`, `unittest`, `dataclasses`, `json`, `logging`)
-
----
-
-## 🗺️ Roadmap / fuera de alcance
-
-- [ ] `BOCPDRegimeExpert` con estado online real entre ciclos (eliminar el `reset()` por `infer()`), documentado como inconsistencia de diseño de bajo riesgo, no corregido en esta ronda
-- [ ] Adaptador de ejecución en vivo para Bybit v5 (firma HMAC), deliberadamente no implementado hasta revisión explícita del operador
-- [ ] Backtesting histórico formal sobre los cuatro fixes de esta ronda (por ahora validado por autotest unitario + ejecución headless en vivo contra datos reales, no por backtest de PnL)
 
 ---
 
