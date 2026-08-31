@@ -21,12 +21,10 @@
 - [🧩 Los 7 expertos](#-los-7-expertos)
 - [⚖️ Gating adaptativo multi-activo](#️-gating-adaptativo-multi-activo)
 - [🛡️ Módulo de riesgo](#️-módulo-de-riesgo)
-- [🔍 Auditoría cruzada v2 → v2.1](#-auditoría-cruzada-v2--v21)
 - [⚙️ Configuración](#️-configuración)
 - [🚀 Instalación y uso](#-instalación-y-uso)
 - [🧪 Suite de autotest](#-suite-de-autotest)
 - [🖥️ Requisitos de hardware](#️-requisitos-de-hardware)
-- [🗺️ Roadmap / fuera de alcance](#️-roadmap--fuera-de-alcance)
 - [⚠️ Aviso](#️-aviso)
 
 ---
