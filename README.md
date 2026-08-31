@@ -1,4 +1,4 @@
-# 🧠 NUCLEUS MoE v2.1 — Multi-Asset Liquidity Capture System
+# 🧠 NUCLEUS MoE v4.1 — Multi-Asset Liquidity Capture System
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-paper--trading-brightgreen" alt="status">
