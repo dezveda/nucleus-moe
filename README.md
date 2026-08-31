@@ -1,4 +1,4 @@
-# 🧠 NUCLEUS MoE v4.1 — Multi-Asset Liquidity Capture System
+# 🧠 NUCLEUS MoE v2.1 — Multi-Asset Liquidity Capture System
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-paper--trading-brightgreen" alt="status">
@@ -31,12 +31,7 @@
 
 ## 🎯 Qué es esto
 
-`nucleus_moe_v4.py` es un **prototipo de investigación en gating adaptativo multi-experto** para trading algorítmico de criptomonedas, no un sistema "listo para capital real" tal cual. Opera en **paper trading desde el primer arranque**; pasar a ejecución en vivo requiere que el operador configure credenciales explícitas y active un flag manual (ver [Ejecución en vivo](#ejecución-en-vivo)).
-
-Fusiona dos linajes de trabajo previos en un solo fichero (monolito único, sin dependencias externas más allá de `numpy`/`requests`):
-
-- **`nucleus_moe_v1`**: núcleo MoE (Mixture of Experts), gating adaptativo tipo Hedge/multiplicative-weights, módulo de riesgo, suite de autotests.
-- **`nucleus_autonomous` / `Taperead10.py`**: microestructura Hawkes bidireccional + CVD, reloj de eventos (WebSocket con fallback a polling REST), GUI dark multi-símbolo.
+`nucleus_moe_v2.py` es un **prototipo de investigación en gating adaptativo multi-experto** para trading algorítmico de criptomonedas, no un sistema "listo para capital real" tal cual. Opera en **paper trading desde el primer arranque**; pasar a ejecución en vivo requiere que el operador configure credenciales explícitas y active un flag manual (ver [Ejecución en vivo](#ejecución-en-vivo)).
 
 ### Principios de diseño (no negociables)
 
@@ -165,7 +160,7 @@ pip install numpy requests
 pip install websocket-client   # opcional
 
 # Ejecutar (arranca autotest obligatorio antes de operar)
-python nucleus_moe_v4.py
+python nucleus_moe_v2.py
 ```
 
 - Con `tkinter` disponible → lanza la **GUI dark** con una pestaña por símbolo (precio, señal, decisión, pesos de gating, log de razonamiento, kill switch por símbolo).
