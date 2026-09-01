@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/badge/license-private-lightgrey" alt="license">
 </p>
 
-> Sistema autónomo de captura de liquidez para **BTC/ETH/SOL USDT-M Perpetuals**, con un núcleo de 7 expertos estadísticos combinados mediante gating adaptativo, riesgo aislado por símbolo, y ejecución en **modo paper por defecto**. Diseñado y validado explícitamente para correr en hardware modesto (Compaq CQ45, 6GB RAM, sin GPU, sin AVX2).
+> Sistema autónomo de captura de liquidez para **BTC/ETH/SOL USDT-M Perpetuals**, con un núcleo de 7 expertos estadísticos combinados mediante gating adaptativo, riesgo aislado por símbolo, y ejecución en **modo paper por defecto**. Diseñado y validado explícitamente para correr en hardware modesto.
 
 ---
 
