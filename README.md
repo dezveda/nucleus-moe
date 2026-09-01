@@ -182,18 +182,16 @@ Cubren: cada uno de los 7 expertos (incluidos casos límite de datos insuficient
 
 ---
 
-## 🖥️ Requisitos de hardware
-
-Diseñado explícitamente para hardware modesto, no como optimización posterior:
-
-- Windows 10 64-bit
-- 6GB RAM
-- Sin GPU
-- **Sin AVX2** (Compaq CQ45) — nada de rutas numéricas que asuman instrucciones vectoriales modernas
-- Solo `numpy` + `requests` como dependencias externas; el resto es stdlib (`tkinter`, `threading`, `queue`, `unittest`, `dataclasses`, `json`, `logging`)
 
 ---
 
 ## ⚠️ Aviso
 
 Este software se entrega en **modo paper trading** y como **prototipo de investigación**. No constituye asesoría financiera. La activación de ejecución en vivo requiere pasos explícitos y deliberados del operador (credenciales + flag), y el adaptador correspondiente está bloqueado a propósito en esta entrega. Cualquier uso con capital real es responsabilidad exclusiva de quien lo active.
+
+## 🖥️ Requisitos de hardware
+
+Diseñado explícitamente para hardware modesto, no como optimización posterior:
+
+- 6GB RAM
+- Solo `numpy` + `requests` como dependencias externas; el resto es stdlib (`tkinter`, `threading`, `queue`, `unittest`, `dataclasses`, `json`, `logging`)
